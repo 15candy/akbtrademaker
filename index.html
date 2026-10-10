@@ -135,10 +135,10 @@
                     </div>
                 </div>
 
-                <!-- ITEM TYPES BADGES LIST (PRESET AT FRONT) -->
+                <!-- ITEM TYPES BADGES LIST -->
                 <div id="types-list"></div>
 
-                <!-- ITEM TYPES INPUT FORM PLACED DIRECTLY BELOW LIST -->
+                <!-- ITEM TYPES INPUT FORM -->
                 <div class="pt-3 border-t border-slate-200 space-y-1.5">
                     <label for="goodsCategoryInput" class="block text-xs font-bold text-slate-700">
                         グッズ種類追加 <span class="text-xs text-slate-500 font-normal">（複数追加の場合はカンマ区切りで入力）</span>
@@ -241,7 +241,7 @@
                 </div>
             </div>
 
-            <!-- EXPORT CARD (Forced fixed width container to ensure identical layout on smartphones and PCs) -->
+            <!-- EXPORT CARD -->
             <div id="capture-area-container" class="flex justify-center items-center w-full py-2 overflow-x-auto scrollbar-thin">
                 <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-[640px] min-w-[640px] shrink-0 h-auto no-scrollbar">
                     <div class="space-y-2">
@@ -255,7 +255,7 @@
                             </div>
                         </div>
 
-                        <!-- Independent Side-by-Side 2-Column Tables (Fixed grid-cols-2 layout for consistent export on mobile) -->
+                        <!-- Independent Side-by-Side Tables Container (Dynamic grid columns) -->
                         <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start w-full">
                             <div id="preview-table-have-wrapper" class="w-full"></div>
                             <div id="preview-table-want-wrapper" class="w-full"></div>
@@ -343,7 +343,7 @@
     </div>
 
     <script>
-        // Official AKB48 Current Members List (Official Roster & Order from https://www.akb48.co.jp/about/members)
+        // Official AKB48 Current Members List
         const akb48OfficialMembers = [
             { name: "岩立 沙穂", gen: "13期生", selected: true },
             { name: "福岡 聖菜", gen: "15期生", selected: true },
@@ -412,7 +412,7 @@
         let state = {
             members: JSON.parse(JSON.stringify(akb48OfficialMembers)),
             itemTypes: JSON.parse(JSON.stringify(defaultItemTypes)),
-            inventory: {} // Key: `${member}_${type}`, Value: { have: number, want: boolean }
+            inventory: {}
         };
 
         function loadStorage() {
@@ -509,7 +509,6 @@
 
             typesList.innerHTML = `
                 <div class="flex flex-wrap items-center gap-2">
-                    <!-- PRESET RAW PHOTO BUTTON AT FRONT -->
                     <button onclick="toggleRawPhotoTypes()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5">
                         <span>📸</span> ヨリ・チュウ・ヒキ
                     </button>
@@ -796,7 +795,7 @@
             showModal("🧹 リセット完了", "すべての譲・求登録データを取り消しました。");
         }
 
-        // SLOTS MANAGEMENT (UP TO 5 SLOTS)
+        // SLOTS MANAGEMENT
         function getSavedSlots() {
             try {
                 const data = localStorage.getItem('akb48_goods_trade_slots_v1');
@@ -832,7 +831,7 @@
 
             if (slots.length >= 5) {
                 if (overwriteContainer) overwriteContainer.classList.remove('hidden');
-                if (executeBtn) executeBtn.classList.add('hidden'); // Overwrite selection required
+                if (executeBtn) executeBtn.classList.add('hidden');
 
                 if (overwriteList) {
                     overwriteList.innerHTML = slots.map((slot, idx) => `
@@ -976,7 +975,7 @@
 
         function deleteSlot(index) {
             const slots = getSavedSlots();
-            const deleted = slots.splice(index, 1);
+            slots.splice(index, 1);
             saveSlotsToStorage(slots);
             openLoadModal();
             showModal("🗑️ 削除完了", `保存データを削除しました。`);
@@ -1045,15 +1044,12 @@
             const formatPreviewMemberName = (fullName) => {
                 const parts = fullName.trim().split(/\s+/);
                 if (parts.length < 2) return fullName;
-                
                 const lastName = parts[0];
                 const firstName = parts[1];
-                
                 const duplicatedSurnames = ['髙橋', '高橋', '橋本', '山内'];
                 if (duplicatedSurnames.includes(lastName) && firstName.length > 0) {
                     return `${lastName}${firstName.charAt(0)}`;
                 }
-                
                 return lastName;
             };
 
@@ -1104,7 +1100,8 @@
 
                     html += `
                         <tr class="${rowBg} border-b border-slate-300">
-                            <td class="py-1 px-0.5 font-bold text-slate-800 border-r-2 border-slate-300 ${nameCellBg} text-center align-middle break-words" style="font-size: 11px;">${displayName}</td>
+                            <!-- メンバー名サイズを1段階大きく (text-xsからtext-sm相当の12px/太字へ拡大) -->
+                            <td class="py-1 px-0.5 font-black text-slate-900 border-r-2 border-slate-300 ${nameCellBg} text-center align-middle break-words" style="font-size: 12.5px;">${displayName}</td>
                     `;
 
                     activeTypes.forEach((t, i) => {
@@ -1151,37 +1148,28 @@
                 return;
             }
 
-            // Always enforce 2-column grid layout (grid-cols-2) and fixed width on mobile for capture area
-            containerLayout.className = "grid grid-cols-2 gap-2 items-start w-full";
-
-            if (hasHave) {
+            // 譲・求のどちらか片方しかない場合は該当テーブルを表示せず、存在する側のみ全幅(grid-cols-1)またはスマートに表示する
+            if (hasHave && hasWant) {
+                containerLayout.className = "grid grid-cols-2 gap-2 items-start w-full";
                 haveWrapper.style.display = 'block';
-                haveWrapper.innerHTML = generateTableHtml(
-                    haveMembers, 
-                    '🎁 【 譲 】', 
-                    'bg-pink-600', 
-                    'border-pink-300', 
-                    'text-pink-700 bg-pink-100/60', 
-                    false
-                );
-            } else {
+                haveWrapper.innerHTML = generateTableHtml(haveMembers, '🎁 【 譲 】', 'bg-pink-600', 'border-pink-300', 'text-pink-700 bg-pink-100/60', false);
+                
+                wantWrapper.style.display = 'block';
+                wantWrapper.innerHTML = generateTableHtml(wantMembers, '🔍 【 求 】', 'bg-purple-600', 'border-purple-300', 'text-purple-700 bg-purple-100/60', true);
+            } else if (hasHave) {
+                containerLayout.className = "grid grid-cols-1 gap-2 items-start w-full";
                 haveWrapper.style.display = 'block';
-                haveWrapper.innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-4 text-center text-slate-400 text-xs shadow-sm">譲データなし</div>`;
-            }
+                haveWrapper.innerHTML = generateTableHtml(haveMembers, '🎁 【 譲 】', 'bg-pink-600', 'border-pink-300', 'text-pink-700 bg-pink-100/60', false);
+                
+                wantWrapper.innerHTML = '';
+                wantWrapper.style.display = 'none';
+            } else if (hasWant) {
+                containerLayout.className = "grid grid-cols-1 gap-2 items-start w-full";
+                haveWrapper.innerHTML = '';
+                haveWrapper.style.display = 'none';
 
-            if (hasWant) {
                 wantWrapper.style.display = 'block';
-                wantWrapper.innerHTML = generateTableHtml(
-                    wantMembers, 
-                    '🔍 【 求 】', 
-                    'bg-purple-600', 
-                    'border-purple-300', 
-                    'text-purple-700 bg-purple-100/60', 
-                    true
-                );
-            } else {
-                wantWrapper.style.display = 'block';
-                wantWrapper.innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-4 text-center text-slate-400 text-xs shadow-sm">求データなし</div>`;
+                wantWrapper.innerHTML = generateTableHtml(wantMembers, '🔍 【 求 】', 'bg-purple-600', 'border-purple-300', 'text-purple-700 bg-purple-100/60', true);
             }
         }
 
@@ -1222,7 +1210,6 @@
             });
         }
 
-        // Modal Controls
         function showModal(title, message, icon = "✨") {
             const modal = document.getElementById('notification-modal');
             const box = document.getElementById('modal-box');
@@ -1257,7 +1244,6 @@
             }
         }
 
-        // Initialize App on DOM Load
         document.addEventListener('DOMContentLoaded', () => {
             loadStorage();
             renderConfig();
