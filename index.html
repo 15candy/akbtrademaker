@@ -242,8 +242,8 @@
             </div>
 
             <!-- EXPORT CARD -->
-            <div id="capture-area-container" class="flex justify-center items-center w-full py-2">
-                <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-full max-w-[540px] h-auto overflow-y-auto no-scrollbar">
+            <div id="capture-area-container" class="flex justify-center items-center w-full py-2 overflow-x-auto">
+                <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-[640px] shrink-0 h-auto no-scrollbar">
                     <div class="space-y-2">
                         <!-- Preview Header -->
                         <div class="text-center space-y-1 pb-2 border-b-2 border-pink-300">
@@ -255,10 +255,10 @@
                             </div>
                         </div>
 
-                        <!-- Independent Side-by-Side or 2-Column Tables -->
-                        <div id="preview-tables-container" class="grid grid-cols-1 md:grid-cols-2 gap-2 items-start">
-                            <div id="preview-table-have-wrapper" class="overflow-x-auto w-full"></div>
-                            <div id="preview-table-want-wrapper" class="overflow-x-auto w-full"></div>
+                        <!-- Independent Side-by-Side 2-Column Tables (Fixed Grid layout for export consistency) -->
+                        <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start">
+                            <div id="preview-table-have-wrapper" class="w-full"></div>
+                            <div id="preview-table-want-wrapper" class="w-full"></div>
                         </div>
                     </div>
 
@@ -1151,86 +1151,11 @@
                 return;
             }
 
-            if (hasHave && !hasWant) {
+            // Always enforce 2-column grid layout (grid-cols-2) so both Have and Want tables stay side-by-side
+            containerLayout.className = "grid grid-cols-2 gap-2 items-start";
+
+            if (hasHave) {
                 haveWrapper.style.display = 'block';
-                wantWrapper.innerHTML = '';
-                wantWrapper.style.display = 'none';
-
-                if (haveMembers.length <= 23) {
-                    containerLayout.className = "grid grid-cols-1 gap-2 items-start max-w-md mx-auto";
-                    haveWrapper.innerHTML = generateTableHtml(
-                        haveMembers, 
-                        '🎁 【 譲 】', 
-                        'bg-pink-600', 
-                        'border-pink-300', 
-                        'text-pink-700 bg-pink-100/60'
-                    );
-                } else {
-                    containerLayout.className = "grid grid-cols-1 md:grid-cols-2 gap-2 items-start";
-                    const midIndex = Math.ceil(haveMembers.length / 2);
-                    const leftHave = haveMembers.slice(0, midIndex);
-                    const rightHave = haveMembers.slice(midIndex);
-
-                    haveWrapper.innerHTML = generateTableHtml(
-                        leftHave, 
-                        '🎁 【 譲 】 （1）', 
-                        'bg-pink-600', 
-                        'border-pink-300', 
-                        'text-pink-700 bg-pink-100/60'
-                    );
-                    wantWrapper.style.display = 'block';
-                    wantWrapper.innerHTML = generateTableHtml(
-                        rightHave, 
-                        '🎁 【 譲 】 （2）', 
-                        'bg-pink-600', 
-                        'border-pink-300', 
-                        'text-pink-700 bg-pink-100/60'
-                    );
-                }
-            } else if (!hasHave && hasWant) {
-                wantWrapper.style.display = 'block';
-                haveWrapper.innerHTML = '';
-                haveWrapper.style.display = 'none';
-
-                if (wantMembers.length <= 23) {
-                    containerLayout.className = "grid grid-cols-1 gap-2 items-start max-w-md mx-auto";
-                    wantWrapper.innerHTML = generateTableHtml(
-                        wantMembers, 
-                        '🔍 【 求 】', 
-                        'bg-purple-600', 
-                        'border-purple-300', 
-                        'text-purple-700 bg-purple-100/60',
-                        true
-                    );
-                } else {
-                    containerLayout.className = "grid grid-cols-1 md:grid-cols-2 gap-2 items-start";
-                    const midIndex = Math.ceil(wantMembers.length / 2);
-                    const leftWant = wantMembers.slice(0, midIndex);
-                    const rightWant = wantMembers.slice(midIndex);
-
-                    haveWrapper.style.display = 'block';
-                    haveWrapper.innerHTML = generateTableHtml(
-                        leftWant, 
-                        '🔍 【 求 】 （1）', 
-                        'bg-purple-600', 
-                        'border-purple-300', 
-                        'text-purple-700 bg-purple-100/60',
-                        true
-                    );
-                    wantWrapper.innerHTML = generateTableHtml(
-                        rightWant, 
-                        '🔍 【 求 】 （2）', 
-                        'bg-purple-600', 
-                        'border-purple-300', 
-                        'text-purple-700 bg-purple-100/60',
-                        true
-                    );
-                }
-            } else {
-                containerLayout.className = "grid grid-cols-1 md:grid-cols-2 gap-2 items-start";
-                haveWrapper.style.display = 'block';
-                wantWrapper.style.display = 'block';
-
                 haveWrapper.innerHTML = generateTableHtml(
                     haveMembers, 
                     '🎁 【 譲 】', 
@@ -1239,7 +1164,13 @@
                     'text-pink-700 bg-pink-100/60', 
                     false
                 );
+            } else {
+                haveWrapper.style.display = 'block';
+                haveWrapper.innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-4 text-center text-slate-400 text-xs shadow-sm">譲データなし</div>`;
+            }
 
+            if (hasWant) {
+                wantWrapper.style.display = 'block';
                 wantWrapper.innerHTML = generateTableHtml(
                     wantMembers, 
                     '🔍 【 求 】', 
@@ -1248,6 +1179,9 @@
                     'text-purple-700 bg-purple-100/60', 
                     true
                 );
+            } else {
+                wantWrapper.style.display = 'block';
+                wantWrapper.innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-4 text-center text-slate-400 text-xs shadow-sm">求データなし</div>`;
             }
         }
 
