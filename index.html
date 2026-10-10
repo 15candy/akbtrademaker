@@ -241,9 +241,9 @@
                 </div>
             </div>
 
-            <!-- EXPORT CARD -->
-            <div id="capture-area-container" class="flex justify-center items-center w-full py-2 overflow-x-auto">
-                <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-[640px] shrink-0 h-auto no-scrollbar">
+            <!-- EXPORT CARD (Forced fixed width container to ensure identical layout on smartphones and PCs) -->
+            <div id="capture-area-container" class="flex justify-center items-center w-full py-2 overflow-x-auto scrollbar-thin">
+                <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-[640px] min-w-[640px] shrink-0 h-auto no-scrollbar">
                     <div class="space-y-2">
                         <!-- Preview Header -->
                         <div class="text-center space-y-1 pb-2 border-b-2 border-pink-300">
@@ -255,8 +255,8 @@
                             </div>
                         </div>
 
-                        <!-- Independent Side-by-Side 2-Column Tables (Fixed Grid layout for export consistency) -->
-                        <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start">
+                        <!-- Independent Side-by-Side 2-Column Tables (Fixed grid-cols-2 layout for consistent export on mobile) -->
+                        <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start w-full">
                             <div id="preview-table-have-wrapper" class="w-full"></div>
                             <div id="preview-table-want-wrapper" class="w-full"></div>
                         </div>
@@ -1075,7 +1075,7 @@
                 const typeColWidth = activeTypes.length > 0 ? (82 / activeTypes.length).toFixed(2) : 10;
 
                 let html = `
-                    <div class="bg-white rounded-xl border-2 ${borderClass} overflow-hidden shadow-sm">
+                    <div class="bg-white rounded-xl border-2 ${borderClass} overflow-hidden shadow-sm w-full">
                         <div class="${headerColorClass} text-white font-bold py-1 px-2 text-center text-xs">${typeLabel}</div>
                         <table class="w-full text-xs border-collapse table-fixed">
                             <thead>
@@ -1143,7 +1143,7 @@
             const hasWant = wantMembers.length > 0;
 
             if (!hasHave && !hasWant) {
-                containerLayout.className = "grid grid-cols-1 gap-2 items-start";
+                containerLayout.className = "grid grid-cols-1 gap-2 items-start w-full";
                 haveWrapper.style.display = 'block';
                 haveWrapper.innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-slate-400 text-xs shadow-sm">登録されている「譲」または「求」データがありません。</div>`;
                 wantWrapper.innerHTML = '';
@@ -1151,8 +1151,8 @@
                 return;
             }
 
-            // Always enforce 2-column grid layout (grid-cols-2) so both Have and Want tables stay side-by-side
-            containerLayout.className = "grid grid-cols-2 gap-2 items-start";
+            // Always enforce 2-column grid layout (grid-cols-2) and fixed width on mobile for capture area
+            containerLayout.className = "grid grid-cols-2 gap-2 items-start w-full";
 
             if (hasHave) {
                 haveWrapper.style.display = 'block';
