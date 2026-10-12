@@ -233,7 +233,7 @@
                         <span>タイトル:</span>
                         <span class="text-[11px] font-normal text-pink-600">※イベント名やグッズ名を入力</span>
                     </label>
-                    <input type="text" id="export-title" value="AKB48　トレード一覧表" class="text-xs px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full font-bold">
+                    <input type="text" id="export-title" value="AKB48 トレード一覧表" class="text-xs px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full font-bold">
                 </div>
                 <div class="flex flex-col gap-1 min-w-[180px]">
                     <label class="text-xs font-bold text-slate-600">連絡先 (半角入力):</label>
@@ -247,7 +247,7 @@
                     <div class="space-y-2">
                         <!-- Preview Header -->
                         <div class="text-center space-y-1 pb-2 border-b-2 border-pink-300">
-                            <h2 id="preview-title-display" class="font-black text-xl text-pink-700 tracking-wide">AKB48　トレード一覧表</h2>
+                            <h2 id="preview-title-display" class="font-black text-xl text-pink-700 tracking-wide">AKB48 トレード一覧表</h2>
                             <div class="flex justify-center items-center gap-2 text-xs text-slate-600 font-semibold">
                                 <span id="preview-contact-display"></span>
                                 <span id="preview-contact-sep">・</span>
@@ -274,10 +274,18 @@
                 <button onclick="switchTab('manage')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs transition">
                     ← 戻る
                 </button>
-                <button onclick="downloadImage()" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-black px-6 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 text-xs flex items-center gap-2">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>画像として保存 (JPG)</span>
-                </button>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <!-- 新規追加：画像専用ウィンドウを開くボタン -->
+                    <button onclick="openImageViewer()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-md transition transform active:scale-95 text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-image"></i>
+                        <span>画像を確認・長押し保存</span>
+                    </button>
+                    <!-- 既存の画像直接保存ボタン -->
+                    <button onclick="downloadImage()" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-black px-5 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>画像として保存 (JPG)</span>
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -1082,7 +1090,7 @@
                                         const fontSizeStyle = isLong ? 'font-size: 8px;' : 'font-size: 9px;';
                                         const wrapClass = isLong ? 'break-words whitespace-normal' : 'truncate whitespace-nowrap';
                                         return `
-                                            <th class="py-1.5 px-0.5 text-center font-bold ${wrapClass} leading-tight ${i < activeTypes.length - 1 ? `border-r-2 ${headerBorder}` : ''}" style="width: ${typeColWidth}%; ${fontSizeStyle}">
+                                            <th class="py-1.5 px-0.5 text-center font-bold ${wrapClass} leading-tight${i < activeTypes.length - 1 ? `border-r-2 ${headerBorder}` : ''}" style="width: ${typeColWidth}\%;${fontSizeStyle}">
                                                 ${t.name}
                                             </th>
                                         `;
@@ -1100,7 +1108,6 @@
 
                     html += `
                         <tr class="${rowBg} border-b border-slate-300">
-                            <!-- メンバー名サイズを1段階大きく (text-xsからtext-sm相当の12px/太字へ拡大) -->
                             <td class="py-1 px-0.5 font-black text-slate-900 border-r-2 border-slate-300 ${nameCellBg} text-center align-middle break-words" style="font-size: 12.5px;">${displayName}</td>
                     `;
 
@@ -1148,7 +1155,6 @@
                 return;
             }
 
-            // 譲・求のどちらか片方しかない場合は該当テーブルを表示せず、存在する側のみ全幅(grid-cols-1)またはスマートに表示する
             if (hasHave && hasWant) {
                 containerLayout.className = "grid grid-cols-2 gap-2 items-start w-full";
                 haveWrapper.style.display = 'block';
@@ -1173,7 +1179,7 @@
             }
         }
 
-        // Image Download
+        // Image Download (Direct download button)
         function downloadImage() {
             const captureArea = document.getElementById('capture-area');
             if (!captureArea) return;
@@ -1203,6 +1209,41 @@
                 link.href = image;
                 link.download = fileName;
                 link.click();
+            }).catch(err => {
+                console.error(err);
+                closeModal();
+                showModal("❌ エラー", "画像の生成に失敗しました。");
+            });
+        }
+
+        // New Feature: Open Image in a separate window/tab for long-press saving (Safari fallback)
+        function openImageViewer() {
+            const captureArea = document.getElementById('capture-area');
+            if (!captureArea) return;
+            showModal("⌛ 画像を作成中", "長押し保存用の画像を作成しています...");
+
+            html2canvas(captureArea, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                useCORS: true
+            }).then(canvas => {
+                closeModal();
+                const image = canvas.toDataURL('image/jpeg', 0.95);
+                
+                const win = window.open();
+                if (win) {
+                    win.document.write(`
+                        <html>
+                            <head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>交換表画像 - 長押し保存</title></head>
+                            <body style="margin:0; background:#1e293b; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:100vh; padding:20px; box-sizing:border-box;">
+                                <p style="color:#f472b6; font-family:sans-serif; font-size:14px; font-weight:bold; margin:0 0 12px 0; text-align:center;">👇 下の画像を長押しして「“写真”に追加」または「画像を保存」してください</p>
+                                <img src="${image}" style="max-width:100%; height:auto; box-shadow:0 8px 24px rgba(0,0,0,0.5); border-radius:8px;">
+                            </body>
+                        </html>
+                    `);
+                } else {
+                    showModal("⚠️ ブロックされました", "ポップアップブロックが有効なため新しいタブを開けませんでした。Safariの設定をご確認ください。");
+                }
             }).catch(err => {
                 console.error(err);
                 closeModal();
