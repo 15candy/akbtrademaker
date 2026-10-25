@@ -40,25 +40,26 @@
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-pink-500 selection:text-white">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-pink-500 selection:text-white text-sm sm:text-base">
 
     <header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-3 py-2.5 flex items-center justify-between gap-2">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-                <span class="text-2xl">💖</span>
                 <div>
-                    <h1 class="text-base font-extrabold text-slate-900 leading-tight">AKB48 トレードメーカー</h1>
+                    <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 leading-tight">
+                        AKB48 <br class="sm:hidden">トレードメーカー
+                    </h1>
                 </div>
             </div>
 
-            <nav class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-                <button onclick="switchTab('config')" id="nav-config" class="px-3 py-1.5 rounded-lg transition bg-pink-600 text-white shadow-sm">
+            <nav class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs sm:text-sm font-bold">
+                <button onclick="switchTab('config')" id="nav-config" class="px-3.5 py-2 rounded-lg transition bg-pink-600 text-white shadow-sm whitespace-nowrap">
                     1. メンバー・種類
                 </button>
-                <button onclick="switchTab('manage')" id="nav-manage" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900">
+                <button onclick="switchTab('manage')" id="nav-manage" class="px-3.5 py-2 rounded-lg transition text-slate-600 hover:text-slate-900 whitespace-nowrap">
                     2. 譲・求登録
                 </button>
-                <button onclick="switchTab('preview')" id="nav-preview" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900">
+                <button onclick="switchTab('preview')" id="nav-preview" class="px-3.5 py-2 rounded-lg transition text-slate-600 hover:text-slate-900 whitespace-nowrap">
                     3. 表プレビュー
                 </button>
             </nav>
@@ -71,67 +72,67 @@
         <section id="tab-config" class="space-y-4">
             
             <!-- MEMBER SELECTION CARD WITH COLLAPSIBLE CONTAINER -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <h2 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+                <div class="flex flex-wrap items-center justify-between gap-2.5">
+                    <h2 class="font-bold text-base sm:text-lg text-slate-800 flex items-center gap-2">
                         <span>👥</span> 対象メンバー選択
                     </h2>
                     
                     <!-- 期生一括選択（1行表示） -->
                     <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin max-w-full">
-                        <button type="button" onclick="selectByGen('all')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition whitespace-nowrap">全選択</button>
-                        <button type="button" onclick="selectByGen('clear')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 transition whitespace-nowrap">全解除</button>
+                        <button type="button" onclick="selectByGen('all')" class="px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition whitespace-nowrap">全選択</button>
+                        <button type="button" onclick="selectByGen('clear')" class="px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 transition whitespace-nowrap">全解除</button>
                         <span class="text-slate-300">|</span>
-                        <button type="button" onclick="toggleGen('13期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">13期</button>
-                        <button type="button" onclick="toggleGen('15期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">15期</button>
-                        <button type="button" onclick="toggleGen('Team8')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">Team8</button>
-                        <button type="button" onclick="toggleGen('ドラフト2期')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">ドラ2</button>
-                        <button type="button" onclick="toggleGen('16期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">16期</button>
-                        <button type="button" onclick="toggleGen('17期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">17期</button>
-                        <button type="button" onclick="toggleGen('18期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">18期</button>
-                        <button type="button" onclick="toggleGen('19期生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">19期</button>
-                        <button type="button" onclick="toggleGen('20期研究生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition whitespace-nowrap">20期</button>
-                        <button type="button" onclick="toggleGen('21期研究生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition whitespace-nowrap">21期</button>
-                        <button type="button" onclick="toggleGen('22期研究生')" class="px-2 py-1 text-xs font-bold rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition whitespace-nowrap">22期</button>
+                        <button type="button" onclick="toggleGen('13期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">13期</button>
+                        <button type="button" onclick="toggleGen('15期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">15期</button>
+                        <button type="button" onclick="toggleGen('Team8')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">Team8</button>
+                        <button type="button" onclick="toggleGen('ドラフト2期')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">ドラ2</button>
+                        <button type="button" onclick="toggleGen('16期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">16期</button>
+                        <button type="button" onclick="toggleGen('17期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">17期</button>
+                        <button type="button" onclick="toggleGen('18期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">18期</button>
+                        <button type="button" onclick="toggleGen('19期生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition whitespace-nowrap">19期</button>
+                        <button type="button" onclick="toggleGen('20期研究生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition whitespace-nowrap">20期</button>
+                        <button type="button" onclick="toggleGen('21期研究生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition whitespace-nowrap">21期</button>
+                        <button type="button" onclick="toggleGen('22期研究生')" class="px-2.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition whitespace-nowrap">22期</button>
                     </div>
                 </div>
 
                 <!-- ACCORDION TOGGLE BUTTON -->
-                <button type="button" onclick="toggleMemberListAccordion()" id="member-accordion-btn" class="w-full py-2 px-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 flex items-center justify-between transition">
+                <button type="button" onclick="toggleMemberListAccordion()" id="member-accordion-btn" class="w-full py-2.5 px-3.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-700 flex items-center justify-between transition">
                     <span id="member-accordion-title">▼ クリックしてメンバー個人名一覧を開く</span>
-                    <span id="member-accordion-count" class="text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full font-bold">選択中: 0人</span>
+                    <span id="member-accordion-count" class="text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-full font-bold text-xs sm:text-sm">選択中: 0人</span>
                 </button>
 
                 <!-- COLLAPSIBLE MEMBERS LIST -->
                 <div id="members-list-container" class="hidden space-y-3 pt-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-slate-500">（チェックを入れると交換表に反映されます）</span>
+                    <div class="flex justify-between items-center gap-2 flex-wrap">
+                        <span class="text-xs sm:text-sm text-slate-500">（チェックを入れると交換表に反映されます）</span>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="new-member-input" placeholder="メンバー名追加" class="text-xs px-2.5 py-1 bg-white border border-slate-300 text-slate-800 rounded-lg focus:outline-none focus:border-pink-500 w-32">
-                            <button onclick="addMember()" class="bg-pink-600 hover:bg-pink-500 text-white px-3 py-1 rounded-lg text-xs font-bold transition shadow-sm">追加</button>
+                            <input type="text" id="new-member-input" placeholder="メンバー名追加" class="text-xs sm:text-sm px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-lg focus:outline-none focus:border-pink-500 w-36">
+                            <button onclick="addMember()" class="bg-pink-600 hover:bg-pink-500 text-white px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition shadow-sm whitespace-nowrap">追加</button>
                         </div>
                     </div>
 
                     <div id="members-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 pr-1"></div>
                     
                     <div class="border-t border-slate-200 flex justify-end pt-2">
-                        <button onclick="resetToDefaultMembers()" class="text-xs text-slate-500 hover:text-pink-600 underline transition">AKB48公式現役メンバーリストに復元</button>
+                        <button onclick="resetToDefaultMembers()" class="text-xs sm:text-sm text-slate-500 hover:text-pink-600 underline transition">AKB48公式現役メンバーリストに復元</button>
                     </div>
                 </div>
             </div>
 
             <!-- ITEM TYPES MANAGEMENT CARD -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-4">
-                <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2.5">
                     <div class="flex items-center gap-2">
-                        <h2 class="font-bold text-sm text-slate-800 flex items-center gap-2">
-                            <span>🎴</span> グッズ種類一覧
+                        <h2 class="font-bold text-base sm:text-lg text-slate-800 flex items-center gap-2">
+                            <span>🛍️</span> グッズ種類一覧
                         </h2>
-                        <span class="text-xs text-rose-500 font-normal">※多すぎると見切れることがあります</span>
+                        <span class="text-xs sm:text-sm text-rose-500 font-medium">※多すぎると見切れることがあります</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="selectAllTypes(true)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg font-bold border border-slate-300 transition">全選択</button>
-                        <button onclick="selectAllTypes(false)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-2.5 py-1 rounded-lg font-bold border border-slate-300 transition">全解除</button>
+                        <button onclick="selectAllTypes(true)" class="text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-bold border border-slate-300 transition">全選択</button>
+                        <button onclick="selectAllTypes(false)" class="text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-bold border border-slate-300 transition">全解除</button>
                     </div>
                 </div>
 
@@ -139,13 +140,13 @@
                 <div id="types-list"></div>
 
                 <!-- ITEM TYPES INPUT FORM -->
-                <div class="pt-3 border-t border-slate-200 space-y-1.5">
-                    <label for="goodsCategoryInput" class="block text-xs font-bold text-slate-700">
-                        グッズ種類追加 <span class="text-xs text-slate-500 font-normal">（複数追加の場合はカンマ区切りで入力）</span>
+                <div class="pt-3 border-t border-slate-200 space-y-2">
+                    <label for="goodsCategoryInput" class="block text-xs sm:text-sm font-bold text-slate-700">
+                        グッズ種類追加 <span class="text-xs sm:text-sm text-slate-500 font-normal">（複数追加の場合はカンマ区切りで入力）</span>
                     </label>
                     <div class="flex items-center gap-2 max-w-xl">
-                        <input type="text" id="goodsCategoryInput" placeholder="例: 缶バッジ, アクリルスタンド, 特典カード" class="flex-1 bg-white border border-slate-300 text-slate-800 placeholder-slate-400 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition">
-                        <button type="button" onclick="addCustomCategories()" class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs rounded-xl transition shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                        <input type="text" id="goodsCategoryInput" placeholder="例: 缶バッジ, アクリルスタンド, 特典カード" class="flex-1 bg-white border border-slate-300 text-slate-800 placeholder-slate-400 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition">
+                        <button type="button" onclick="addCustomCategories()" class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-md flex items-center gap-1.5 whitespace-nowrap">
                             <i class="fa-solid fa-plus"></i> 種類を一括追加
                         </button>
                     </div>
@@ -153,7 +154,7 @@
             </div>
 
             <div class="flex justify-end pt-2">
-                <button onclick="switchTab('manage')" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-6 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 text-xs flex items-center gap-2">
+                <button onclick="switchTab('manage')" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition transform active:scale-95 text-xs sm:text-sm flex items-center gap-2">
                     <span>次へ：譲・求登録へ進む</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -163,31 +164,31 @@
         <!-- TAB 2: Manage Section -->
         <section id="tab-manage" class="space-y-3 hidden">
             <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
-                <div class="flex items-center gap-2 flex-1 min-w-[200px]">
+                <div class="flex items-center gap-2 flex-1 min-w-[180px]">
                     <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
                     <input type="text" id="member-search-input" oninput="renderManageGrid()" placeholder="メンバー名検索..." class="text-xs px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full max-w-xs">
                 </div>
                 
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 flex-wrap">
                     <div class="flex items-center gap-1.5">
-                        <span class="text-xs font-bold text-slate-600">種類絞り込み:</span>
+                        <span class="text-xs font-bold text-slate-600 whitespace-nowrap">絞り込み:</span>
                         <select id="manage-filter-type" onchange="renderManageGrid()" class="text-xs px-2.5 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 font-medium">
                             <option value="all">すべての選択中種類</option>
                         </select>
                     </div>
-                    <button onclick="clearAllInventory()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm">
+                    <button onclick="clearAllInventory()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm whitespace-nowrap">
                         <i class="fa-solid fa-trash-can"></i>
                         <span>全クリア</span>
                     </button>
                 </div>
             </div>
 
-            <!-- HIGH-DENSITY MANAGEMENT TABLE WITH STICKY HEADERS -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto max-h-[calc(100vh-210px)] scrollbar-thin">
-                <table class="w-full text-left border-collapse min-w-max">
+            <!-- HIGH-DENSITY MANAGEMENT TABLE WITH RESPONSIVE TABLE-FIXED LAYOUT & EXPANDED FONT / FIXED HEIGHT FOR ~12 ROWS -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden h-[calc(100vh-250px)] max-h-[600px] min-h-[420px] overflow-y-auto scrollbar-thin">
+                <table class="w-full text-left border-collapse table-fixed">
                     <thead class="sticky top-0 bg-slate-100 z-30 border-b border-slate-200 shadow-sm">
                         <tr id="manage-table-header-row">
-                            <th class="p-2.5 font-bold text-slate-800 text-xs min-w-[160px] border-r border-slate-200 bg-slate-100 sticky left-0 z-40">
+                            <th class="p-2 sm:p-3 font-bold text-slate-800 text-sm sm:text-base border-r border-slate-200 bg-slate-100 sticky left-0 z-40 w-[38%] sm:w-[30%] md:w-[24%]">
                                 メンバー
                             </th>
                         </tr>
@@ -197,11 +198,12 @@
                 </table>
             </div>
 
-            <div class="flex justify-between items-center pt-2">
-                <button onclick="switchTab('config')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2 rounded-xl text-xs transition">
+            <!-- BOTTOM ALWAYS VISIBLE ACTION BUTTONS (NO SCROLL NEEDED) -->
+            <div class="sticky bottom-0 bg-slate-100/90 backdrop-blur pt-2 pb-1 flex justify-between items-center z-30 border-t border-slate-200">
+                <button onclick="switchTab('config')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition shadow-sm">
                     ← 戻る
                 </button>
-                <button onclick="switchTab('preview')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-2 rounded-xl text-xs shadow-md transition flex items-center gap-1.5">
+                <button onclick="switchTab('preview')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-1.5">
                     <span>表プレビューを確認する</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -211,7 +213,7 @@
         <!-- TAB 3: Preview Section -->
         <section id="tab-preview" class="space-y-3 hidden">
             <!-- SAVE & LOAD SLOTS BAR -->
-            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
+            <div class="bg-white rounded-2xl p-2.5 sm:p-3 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-2 shrink-0">
                 <div class="flex items-center gap-2">
                     <span class="text-xs font-bold text-slate-700 flex items-center gap-1">
                         <i class="fa-solid fa-cloud-arrow-down text-pink-600"></i> 一時保存マネージャー (最大5個):
@@ -227,60 +229,152 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
-                <div class="flex flex-col gap-1 flex-1 min-w-[200px]">
-                    <label class="text-xs font-bold text-slate-600 flex items-center justify-between">
-                        <span>タイトル:</span>
-                        <span class="text-[11px] font-normal text-pink-600">※イベント名やグッズ名を入力</span>
-                    </label>
-                    <input type="text" id="export-title" value="AKB48 トレード一覧表" class="text-xs px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full font-bold">
+            <!-- TITLE & CONTACT BAR: SINGLE ROW FLEX WITH FIXED SHRINKABLE INPUTS -->
+            <div class="bg-white rounded-2xl p-2.5 sm:p-3 border border-slate-200 shadow-sm flex flex-nowrap items-center justify-between gap-2 shrink-0 overflow-x-auto">
+                <div class="flex items-center gap-2 flex-1 min-w-0">
+                    <label class="text-xs font-bold text-slate-600 whitespace-nowrap">タイトル:</label>
+                    <input type="text" id="export-title" value="AKB48 トレード一覧表" class="text-xs px-2.5 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full font-bold truncate">
                 </div>
-                <div class="flex flex-col gap-1 min-w-[180px]">
-                    <label class="text-xs font-bold text-slate-600">連絡先 (半角入力):</label>
-                    <input type="text" id="export-contact" value="" placeholder="@X_account" inputmode="email" class="text-xs px-3 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-full font-medium">
+                <div class="flex items-center gap-2 shrink-0 max-w-[42%] sm:max-w-[36%]">
+                    <label class="text-xs font-bold text-slate-600 whitespace-nowrap">連絡先:</label>
+                    <input type="text" id="export-contact" value="" placeholder="@X_account" inputmode="email" class="text-xs px-2.5 py-1.5 bg-white border border-slate-300 text-slate-800 rounded-xl focus:outline-none focus:border-pink-500 w-28 sm:w-36 font-medium truncate">
                 </div>
             </div>
 
-            <!-- EXPORT CARD -->
-            <div id="capture-area-container" class="flex justify-center items-center w-full py-2 overflow-x-auto scrollbar-thin">
-                <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between w-[640px] min-w-[640px] shrink-0 h-auto no-scrollbar">
-                    <div class="space-y-2">
-                        <!-- Preview Header -->
-                        <div class="text-center space-y-1 pb-2 border-b-2 border-pink-300">
-                            <h2 id="preview-title-display" class="font-black text-xl text-pink-700 tracking-wide">AKB48 トレード一覧表</h2>
-                            <div class="flex justify-center items-center gap-2 text-xs text-slate-600 font-semibold">
-                                <span id="preview-contact-display"></span>
-                                <span id="preview-contact-sep">・</span>
-                                <span id="preview-date">2026/10/10</span>
+            <!-- MODE SWITCHING TABS -->
+            <div class="flex items-center gap-2 bg-slate-200/80 p-1 rounded-2xl border border-slate-300 text-xs font-bold shrink-0">
+                <button onclick="switchPreviewMode('grid')" id="mode-tab-grid" class="flex-1 py-2 rounded-xl transition bg-pink-600 text-white shadow-sm flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-table-cells"></i>
+                    <span>📊 表形式画像</span>
+                </button>
+                <button onclick="switchPreviewMode('text-image')" id="mode-tab-text-image" class="flex-1 py-2 rounded-xl transition text-slate-700 hover:bg-slate-300 flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-file-image"></i>
+                    <span>🔤 テキスト画像</span>
+                </button>
+                <button onclick="switchPreviewMode('text-copy')" id="mode-tab-text-copy" class="flex-1 py-2 rounded-xl transition text-slate-700 hover:bg-slate-300 flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>📝 テキスト生成</span>
+                </button>
+            </div>
+
+            <!-- FIXED CONTAINER FOR PREVIEW CONTENT WITH NO OUTER SCROLL UNLESS NEEDED -->
+            <div class="bg-slate-50/50 rounded-2xl border border-slate-200 p-2 sm:p-3 h-[calc(100vh-330px)] max-h-[520px] min-h-[340px] flex flex-col justify-center items-center overflow-hidden">
+                <!-- PREVIEW MODE 1: GRID TABLE CAPTURE AREA -->
+                <div id="preview-mode-grid" class="preview-mode-content w-full h-full overflow-y-auto scrollbar-thin flex justify-start sm:justify-center items-start py-1">
+                    <div id="capture-area-container" class="flex justify-center items-center w-full py-1">
+                        <div id="capture-area" class="bg-gradient-to-br from-pink-50 via-white to-purple-50 border-2 border-pink-300 rounded-2xl p-3 shadow-xl flex flex-col justify-between min-w-[580px] w-full max-w-[660px] shrink-0 h-auto no-scrollbar">
+                            <div class="space-y-2">
+                                <!-- Preview Header -->
+                                <div class="text-center space-y-1 pb-2 border-b-2 border-pink-300">
+                                    <h2 id="preview-title-display" class="font-black text-lg sm:text-xl text-pink-700 tracking-wide">AKB48 トレード一覧表</h2>
+                                </div>
+
+                                <!-- Always Side-by-Side Tables Container -->
+                                <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start w-full">
+                                    <div id="preview-table-have-wrapper" class="w-full"></div>
+                                    <div id="preview-table-want-wrapper" class="w-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Note with Date & Contact on Left -->
+                            <div class="pt-2 mt-2 text-xs text-slate-600 font-bold flex justify-between items-center px-1 border-t border-pink-200">
+                                <div class="flex items-center gap-2">
+                                    <span id="preview-date">2026/10/10</span>
+                                    <span id="preview-contact-sep">・</span>
+                                    <span id="preview-contact-display"></span>
+                                </div>
+                                <span class="text-pink-600">#AKB48 #トレード</span>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Independent Side-by-Side Tables Container (Dynamic grid columns) -->
-                        <div id="preview-tables-container" class="grid grid-cols-2 gap-2 items-start w-full">
-                            <div id="preview-table-have-wrapper" class="w-full"></div>
-                            <div id="preview-table-want-wrapper" class="w-full"></div>
+                <!-- PREVIEW MODE 2: TEXT IMAGE CAPTURE AREA -->
+                <div id="preview-mode-text-image" class="preview-mode-content hidden w-full h-full overflow-y-auto scrollbar-thin flex justify-center items-start py-1">
+                    <div class="flex justify-center items-center w-full py-1">
+                        <div id="capture-area-text-image" class="bg-white border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xl flex flex-col justify-between w-full max-w-[600px] shrink-0 h-auto no-scrollbar text-black font-mono">
+                            <div class="space-y-4">
+                                <!-- Text Image Header -->
+                                <div class="space-y-1">
+                                    <h2 id="text-image-title-display" class="font-bold text-xl sm:text-2xl text-black tracking-tight leading-snug">AKB48 トレード一覧表</h2>
+                                </div>
+
+                                <!-- Text Content Container -->
+                                <div class="space-y-4 text-xs sm:text-sm leading-relaxed text-black">
+                                    <div id="text-image-have-container" class="space-y-1">
+                                        <div class="font-bold text-sm sm:text-base text-black">
+                                            譲
+                                        </div>
+                                        <div id="text-image-have-list" class="space-y-1"></div>
+                                    </div>
+
+                                    <div id="text-image-want-container" class="space-y-1">
+                                        <div class="font-bold text-sm sm:text-base text-black">
+                                            求
+                                        </div>
+                                        <div id="text-image-want-list" class="space-y-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Text Image Footer -->
+                            <div class="pt-3 mt-4 text-xs text-black font-normal flex justify-between items-center">
+                                <span>AKB48 Trade Maker <span id="text-image-date-display" class="ml-1"></span><span id="text-image-contact-display" class="ml-2 font-bold"></span></span>
+                                <span>#AKB48 #トレード</span>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Footer Note -->
-                    <div class="pt-2 mt-2 text-center text-xs text-pink-600 font-bold flex justify-between px-2 border-t border-pink-200">
-                        <span></span>
-                        <span>#AKB48 #トレード</span>
+                <!-- PREVIEW MODE 3: EDITABLE TEXT TABLE & QUICK BUTTONS -->
+                <div id="preview-mode-text-copy" class="preview-mode-content hidden w-full h-full overflow-y-auto scrollbar-thin space-y-3 p-1">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-wand-magic-sparkles text-pink-600"></i> よく使う文言（カーソル位置に挿入）:
+                            </label>
+                        </div>
+                        
+                        <!-- Quick Phrase Insertion Buttons -->
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <button type="button" onclick="insertQuickPhrase('AKB48')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition">AKB48</button>
+                            <button type="button" onclick="insertQuickPhrase('トレ')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition">トレ</button>
+                            <button type="button" onclick="insertQuickPhrase('譲')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition">譲</button>
+                            <button type="button" onclick="insertQuickPhrase('求')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition">求</button>
+                            <button type="button" onclick="insertQuickPhrase('交換')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition">交換</button>
+                            <button type="button" onclick="insertQuickPhrase('譲渡')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 transition">譲渡</button>
+                            <button type="button" onclick="insertQuickPhrase('★は★どうし')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 transition">★は★どうし</button>
+                            <button type="button" onclick="insertQuickPhrase('現地手渡し')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition">現地手渡し</button>
+                            <button type="button" onclick="insertQuickPhrase('郵送可')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition">郵送可</button>
+                        </div>
+
+                        <!-- Editable Text Area with Fixed Height and Internal Scrollbar -->
+                        <textarea id="copy-text-area" rows="6" class="w-full text-sm font-mono p-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-pink-500 text-slate-900 leading-relaxed font-medium h-36 max-h-36 overflow-y-auto scrollbar-thin resize-none"></textarea>
+
+                        <div class="flex items-center justify-between gap-2 pt-1">
+                            <div id="char-count-display" class="text-xs font-mono font-bold text-slate-400">
+                                0 / 140文字
+                            </div>
+
+                            <button onclick="copyGeneratedText()" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs shadow-md transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-copy"></i>
+                                <span>テキストをコピーする</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-                <button onclick="switchTab('manage')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs transition">
+            <!-- FIXED BOTTOM ACTION BUTTONS BAR -->
+            <div id="image-action-buttons" class="sticky bottom-0 bg-slate-100/95 backdrop-blur pt-2 pb-1 flex flex-wrap items-center justify-between gap-3 z-30 border-t border-slate-200 shrink-0">
+                <button onclick="switchTab('manage')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-sm">
                     ← 戻る
                 </button>
-                <div class="flex items-center gap-2 flex-wrap">
-                    <!-- 新規追加：画像専用ウィンドウを開くボタン -->
+                <div id="image-only-actions" class="flex items-center gap-2 flex-wrap">
                     <button onclick="openImageViewer()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-md transition transform active:scale-95 text-xs flex items-center gap-1.5">
                         <i class="fa-solid fa-image"></i>
                         <span>画像を確認・長押し保存</span>
                     </button>
-                    <!-- 既存の画像直接保存ボタン -->
                     <button onclick="downloadImage()" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-black px-5 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 text-xs flex items-center gap-1.5">
                         <i class="fa-solid fa-camera"></i>
                         <span>画像として保存 (JPG)</span>
@@ -420,8 +514,12 @@
         let state = {
             members: JSON.parse(JSON.stringify(akb48OfficialMembers)),
             itemTypes: JSON.parse(JSON.stringify(defaultItemTypes)),
-            inventory: {}
+            inventory: {},
+            priorityMembers: {}
         };
+
+        // Active Preview Mode State ('grid', 'text-image', 'text-copy')
+        let activePreviewMode = 'grid';
 
         function loadStorage() {
             try {
@@ -431,6 +529,7 @@
                     if (parsed.members && parsed.members.length > 0) state.members = parsed.members;
                     if (parsed.itemTypes && parsed.itemTypes.length > 0) state.itemTypes = parsed.itemTypes;
                     if (parsed.inventory) state.inventory = parsed.inventory;
+                    if (parsed.priorityMembers) state.priorityMembers = parsed.priorityMembers;
                 }
             } catch (e) {
                 console.error('Storage load failed', e);
@@ -471,6 +570,36 @@
             }
         }
 
+        function switchPreviewMode(mode) {
+            activePreviewMode = mode;
+            ['grid', 'text-image', 'text-copy'].forEach(m => {
+                const content = document.getElementById(`preview-mode-${m}`);
+                const tab = document.getElementById(`mode-tab-${m}`);
+                if (content) content.classList.add('hidden');
+                if (tab) {
+                    tab.className = "flex-1 py-2 rounded-xl transition text-slate-700 hover:bg-slate-300 flex items-center justify-center gap-1.5";
+                }
+            });
+
+            const activeContent = document.getElementById(`preview-mode-${mode}`);
+            const activeTab = document.getElementById(`mode-tab-${mode}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeTab) {
+                activeTab.className = "flex-1 py-2 rounded-xl transition bg-pink-600 text-white shadow-sm flex items-center justify-center gap-1.5";
+            }
+
+            const imageOnlyActions = document.getElementById('image-only-actions');
+            if (imageOnlyActions) {
+                if (mode === 'text-copy') {
+                    imageOnlyActions.classList.add('hidden');
+                } else {
+                    imageOnlyActions.classList.remove('hidden');
+                }
+            }
+
+            renderPreview();
+        }
+
         function renderConfig() {
             renderMembersCheckboxes();
             renderTypesList();
@@ -504,9 +633,9 @@
             if (!membersList) return;
 
             membersList.innerHTML = state.members.map((m, idx) => `
-                <label id="member-card-${m.name}" class="flex items-center gap-2 p-2 bg-slate-50 hover:bg-pink-50/50 rounded-xl border border-slate-200 cursor-pointer transition">
+                <label id="member-card-${m.name}" class="flex items-center gap-2 p-2.5 bg-slate-50 hover:bg-pink-50/50 rounded-xl border border-slate-200 cursor-pointer transition">
                     <input type="checkbox" ${m.selected ? 'checked' : ''} onchange="toggleMemberSelect(${idx})" class="rounded text-pink-600 focus:ring-pink-500 w-4 h-4 bg-white border-slate-300">
-                    <span class="text-xs font-bold text-slate-800 truncate">${m.name}</span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 truncate">${m.name}</span>
                 </label>
             `).join('');
         }
@@ -516,16 +645,16 @@
             if (!typesList) return;
 
             typesList.innerHTML = `
-                <div class="flex flex-wrap items-center gap-2">
-                    <button onclick="toggleRawPhotoTypes()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button onclick="toggleRawPhotoTypes()" class="px-3.5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs sm:text-sm font-bold transition shadow-sm flex items-center gap-1.5">
                         <span>📸</span> ヨリ・チュウ・ヒキ
                     </button>
 
                     ${state.itemTypes.map((t, idx) => `
-                        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold cursor-pointer transition ${t.selected ? 'bg-pink-50 border-pink-300 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-400'}">
+                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer transition ${t.selected ? 'bg-pink-50 border-pink-300 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-400'}">
                             <input type="checkbox" ${t.selected ? 'checked' : ''} onchange="toggleTypeSelect(${idx})" class="rounded text-pink-600 focus:ring-pink-500 w-4 h-4 bg-white border-slate-300">
                             <span>${t.name}</span>
-                            <button onclick="event.preventDefault(); deleteItemType(${idx})" class="text-slate-400 hover:text-rose-600 font-bold ml-1 text-xs">✕</button>
+                            <button onclick="event.preventDefault(); deleteItemType(${idx})" class="text-slate-400 hover:text-rose-600 font-bold ml-1 text-xs sm:text-sm">✕</button>
                         </label>
                     `).join('')}
                 </div>
@@ -640,6 +769,16 @@
             select.innerHTML = `<option value="all">すべての選択中種類</option>` + activeTypes.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
         }
 
+        // メンバー優先順位（星マーク）トグル機能
+        function toggleMemberPriority(memberName) {
+            if (!state.priorityMembers) {
+                state.priorityMembers = {};
+            }
+            state.priorityMembers[memberName] = !state.priorityMembers[memberName];
+            saveStorage();
+            renderManageGrid();
+        }
+
         function renderManageGrid() {
             const container = document.getElementById('manage-grid-container');
             const headerRow = document.getElementById('manage-table-header-row');
@@ -653,12 +792,16 @@
             const selectedMembers = state.members.filter(m => m.selected && m.name.toLowerCase().includes(searchQuery));
             const activeTypes = state.itemTypes.filter(t => t.selected && (filterType === 'all' || t.name === filterType));
 
+            // メンバー列の固定幅割合（被りを防ぐため幅を確保）
+            const nameColWidthPercent = 38;
+            const typeColWidthPercent = activeTypes.length > 0 ? ((100 - nameColWidthPercent) / activeTypes.length).toFixed(2) : 10;
+
             headerRow.innerHTML = `
-                <th class="p-2.5 font-bold text-slate-800 text-xs min-w-[170px] border-r border-slate-200 bg-slate-100 sticky left-0 z-20">
+                <th class="p-2 sm:p-2.5 font-bold text-slate-800 text-xs sm:text-sm md:text-base border-r border-slate-200 bg-slate-100 sticky left-0 z-20" style="width: ${nameColWidthPercent}%;">
                     メンバー
                 </th>
                 ${activeTypes.map(t => `
-                    <th class="px-2 py-2 font-bold text-slate-800 text-xs text-center border-r border-slate-200 min-w-[110px] bg-slate-100">
+                    <th class="px-1 py-2 font-bold text-slate-800 text-xs sm:text-sm md:text-base text-center border-r border-slate-200 bg-slate-100 truncate" style="width: ${typeColWidthPercent}%;">
                         ${t.name}
                     </th>
                 `).join('')}
@@ -667,7 +810,7 @@
             if (selectedMembers.length === 0 || activeTypes.length === 0) {
                 container.innerHTML = `
                     <tr>
-                        <td colspan="${activeTypes.length + 1}" class="text-center py-8 text-slate-400 text-xs">
+                        <td colspan="${activeTypes.length + 1}" class="text-center py-8 text-slate-400 text-xs sm:text-sm">
                             表示可能なデータがありません。「1. メンバー・種類」で選択してください。
                         </td>
                     </tr>`;
@@ -678,20 +821,24 @@
             selectedMembers.forEach((memberObj, idx) => {
                 const member = memberObj.name;
                 const rowBg = idx % 2 === 0 ? 'bg-white' : 'bg-slate-100/90';
+                const isPriority = !!(state.priorityMembers && state.priorityMembers[member]);
+                const displayName = getMemberSurname(member);
 
                 html += `
-                    <tr class="${rowBg} hover:bg-pink-50/40 transition">
-                        <td class="px-2.5 py-2 font-bold text-slate-800 text-xs border-r border-slate-200 sticky left-0 z-10 ${rowBg}">
-                            <div class="flex items-center justify-between gap-1">
-                                <span class="truncate flex items-center gap-1">
-                                    <span class="text-pink-500 text-xs">👤</span>
-                                    <span>${member}</span>
-                                </span>
-                                <div class="flex items-center gap-1 shrink-0">
-                                    <button onclick="toggleMemberAllWant('${member}')" title="このメンバーの求を全選択" class="bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold px-1.5 py-0.5 rounded text-[10px] border border-purple-300 transition">
+                    <tr class="${rowBg} hover:bg-pink-50/40 transition h-11">
+                        <td class="p-1 sm:p-1.5 font-bold text-slate-800 border-r border-slate-200 sticky left-0 z-10 ${rowBg}">
+                            <div class="flex items-center justify-between gap-1 w-full">
+                                <div class="flex items-center gap-1 min-w-0 flex-1 overflow-hidden">
+                                    <button onclick="toggleMemberPriority('${member}')" title="優先順位（星マーク）を切替" class="focus:outline-none transition transform active:scale-125 shrink-0 p-0.5">
+                                        <i class="fa-star ${isPriority ? 'fa-solid text-amber-400' : 'fa-regular text-slate-300 hover:text-amber-300'} text-xs sm:text-sm"></i>
+                                    </button>
+                                    <span class="truncate text-xs sm:text-sm font-bold text-slate-900 leading-tight">${displayName}</span>
+                                </div>
+                                <div class="flex items-center gap-1 shrink-0 ml-1">
+                                    <button onclick="toggleMemberAllWant('${member}')" title="このメンバーの求を全選択" class="bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold px-1.5 py-0.5 rounded text-[10px] sm:text-xs border border-purple-300 transition leading-none whitespace-nowrap">
                                         求全
                                     </button>
-                                    <button onclick="clearMemberInventory('${member}')" title="このメンバーのみリセット" class="bg-slate-100 hover:bg-rose-100 hover:text-rose-700 text-slate-500 font-bold px-1.5 py-0.5 rounded text-[10px] border border-slate-300 transition">
+                                    <button onclick="clearMemberInventory('${member}')" title="このメンバーのみリセット" class="bg-slate-100 hover:bg-rose-100 hover:text-rose-700 text-slate-400 hover:text-rose-600 font-bold px-1.5 py-0.5 rounded text-[10px] sm:text-xs border border-slate-300 transition leading-none whitespace-nowrap">
                                         ✕
                                     </button>
                                 </div>
@@ -708,29 +855,29 @@
                     const hasAny = haveCount > 0 || wantActive;
 
                     html += `
-                        <td class="px-2 py-1.5 text-center border-r border-slate-200">
-                            <div class="inline-flex items-center justify-center gap-1">
+                        <td class="p-1 text-center border-r border-slate-200 align-middle">
+                            <div class="inline-flex items-center justify-center gap-1 flex-wrap">
                                 <button onclick="adjustStatus('${member}', '${type}', 'have')" 
-                                    class="px-2 py-1 rounded-lg font-bold text-xs transition flex items-center gap-1 ${
+                                    class="px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg font-bold text-xs sm:text-sm transition flex items-center gap-0.5 ${
                                         haveCount > 0 
                                         ? 'bg-pink-600 text-white shadow-sm' 
-                                        : 'bg-slate-100 text-slate-500 hover:bg-pink-100 hover:text-pink-700 border border-slate-200'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-pink-100 hover:text-pink-700 border border-slate-300'
                                     }">
                                     <span>譲</span>
-                                    ${haveCount > 0 ? `<span class="bg-white/20 px-1 rounded text-[10px]">${haveCount}</span>` : ''}
+                                    ${haveCount > 0 ? `<span class="bg-white/20 px-1 rounded text-[11px] ml-0.5">${haveCount}</span>` : ''}
                                 </button>
 
                                 <button onclick="adjustStatus('${member}', '${type}', 'want')" 
-                                    class="px-2 py-1 rounded-lg font-bold text-xs transition flex items-center gap-1 ${
+                                    class="px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg font-bold text-xs sm:text-sm transition flex items-center gap-0.5 ${
                                         wantActive 
                                         ? 'bg-purple-600 text-white shadow-sm' 
-                                        : 'bg-slate-100 text-slate-500 hover:bg-purple-100 hover:text-purple-700 border border-slate-200'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-purple-700 border border-slate-300'
                                     }">
                                     <span>求</span>
                                 </button>
 
                                 ${hasAny ? `
-                                    <button onclick="clearStatus('${member}', '${type}')" class="text-slate-400 hover:text-rose-600 font-bold text-xs pl-0.5" title="削除">
+                                    <button onclick="clearStatus('${member}', '${type}')" class="text-slate-400 hover:text-rose-600 font-bold text-xs px-0.5" title="削除">
                                         ✕
                                     </button>
                                 ` : ''}
@@ -796,11 +943,12 @@
         }
 
         function clearAllInventory() {
-            if (Object.keys(state.inventory).length === 0) return;
+            if (Object.keys(state.inventory).length === 0 && Object.keys(state.priorityMembers || {}).length === 0) return;
             state.inventory = {};
+            state.priorityMembers = {};
             saveStorage();
             renderManageGrid();
-            showModal("🧹 リセット完了", "すべての譲・求登録データを取り消しました。");
+            showModal("🧹 リセット完了", "すべての譲・求登録データおよび星マークをクリアしました。");
         }
 
         // SLOTS MANAGEMENT
@@ -969,6 +1117,7 @@
             if (!slot) return;
 
             state = JSON.parse(JSON.stringify(slot.state));
+            if (!state.priorityMembers) state.priorityMembers = {};
             saveStorage();
 
             const titleInput = document.getElementById('export-title');
@@ -989,12 +1138,74 @@
             showModal("🗑️ 削除完了", `保存データを削除しました。`);
         }
 
+        // Helper to format member surname only
+        function getMemberSurname(fullName) {
+            const parts = fullName.trim().split(/\s+/);
+            const isPriority = !!(state.priorityMembers && state.priorityMembers[fullName]);
+            const prefix = isPriority ? '★' : '';
+            if (parts.length >= 2) {
+                const lastName = parts[0];
+                const firstName = parts[1];
+                const duplicatedSurnames = ['髙橋', '高橋', '橋本', '山内'];
+                if (duplicatedSurnames.includes(lastName) && firstName.length > 0) {
+                    return `${prefix}${lastName} ${firstName.charAt(0)}`;
+                }
+                return `${prefix}${lastName}`;
+            }
+            return `${prefix}${fullName}`;
+        }
+
+        // Build simple text data for text-image and text-copy modes
+        function buildTextTradeData(isCopyText = false) {
+            const activeMembers = state.members.filter(m => m.selected);
+            const activeTypes = state.itemTypes.filter(t => t.selected);
+
+            let haveMap = {}; // { typeName: [ "苗字2", ... ] }
+            let wantMap = {}; // { typeName: [ "苗字", ... ] }
+
+            activeTypes.forEach(t => {
+                const typeName = t.name;
+                haveMap[typeName] = [];
+                wantMap[typeName] = [];
+
+                activeMembers.forEach(m => {
+                    const inv = state.inventory[`${m.name}_${typeName}`];
+                    const count = inv?.have || 0;
+                    const want = inv?.want === true;
+                    const nameStr = getMemberSurname(m.name);
+
+                    if (count > 0) {
+                        const label = count >= 2 ? `${nameStr}${count}` : nameStr;
+                        haveMap[typeName].push(label);
+                    }
+                    if (want) {
+                        wantMap[typeName].push(nameStr);
+                    }
+                });
+            });
+
+            return { haveMap, wantMap };
+        }
+
         function renderPreview() {
+            const titleInput = document.getElementById('export-title');
+            const contactInput = document.getElementById('export-contact');
+            const titleVal = titleInput ? titleInput.value : 'AKB48 トレード一覧表';
+            const contactVal = contactInput ? contactInput.value.trim() : '';
+
+            if (activePreviewMode === 'grid') {
+                renderGridPreview(titleVal, contactVal);
+            } else if (activePreviewMode === 'text-image') {
+                renderTextImagePreview(titleVal, contactVal);
+            } else if (activePreviewMode === 'text-copy') {
+                renderTextCopyPreview(titleVal, contactVal);
+            }
+        }
+
+        function renderGridPreview(titleVal, contactVal) {
             const haveWrapper = document.getElementById('preview-table-have-wrapper');
             const wantWrapper = document.getElementById('preview-table-want-wrapper');
             const containerLayout = document.getElementById('preview-tables-container');
-            const titleInput = document.getElementById('export-title');
-            const contactInput = document.getElementById('export-contact');
             const titleDisplay = document.getElementById('preview-title-display');
             const contactDisplay = document.getElementById('preview-contact-display');
             const contactSep = document.getElementById('preview-contact-sep');
@@ -1002,12 +1213,11 @@
 
             if (!haveWrapper || !wantWrapper || !containerLayout) return;
 
-            if (titleDisplay && titleInput) titleDisplay.innerText = titleInput.value;
+            if (titleDisplay) titleDisplay.innerText = titleVal;
             
-            if (contactDisplay && contactInput) {
-                const contactValue = contactInput.value.trim();
-                if (contactValue) {
-                    contactDisplay.innerText = `連絡先: ${contactValue}`;
+            if (contactDisplay) {
+                if (contactVal) {
+                    contactDisplay.innerText = `連絡先: ${contactVal}`;
                     contactDisplay.style.display = 'inline';
                     if (contactSep) contactSep.style.display = 'inline';
                 } else {
@@ -1051,14 +1261,22 @@
 
             const formatPreviewMemberName = (fullName) => {
                 const parts = fullName.trim().split(/\s+/);
-                if (parts.length < 2) return fullName;
-                const lastName = parts[0];
-                const firstName = parts[1];
-                const duplicatedSurnames = ['髙橋', '高橋', '橋本', '山内'];
-                if (duplicatedSurnames.includes(lastName) && firstName.length > 0) {
-                    return `${lastName}${firstName.charAt(0)}`;
+                let formatted = fullName;
+                if (parts.length >= 2) {
+                    const lastName = parts[0];
+                    const firstName = parts[1];
+                    const duplicatedSurnames = ['髙橋', '高橋', '橋本', '山内'];
+                    if (duplicatedSurnames.includes(lastName) && firstName.length > 0) {
+                        formatted = `${lastName}${firstName.charAt(0)}`;
+                    } else {
+                        formatted = lastName;
+                    }
                 }
-                return lastName;
+                
+                if (state.priorityMembers && state.priorityMembers[fullName]) {
+                    return `<span class="text-amber-500 font-bold">★</span>${formatted}`;
+                }
+                return formatted;
             };
 
             const haveMembers = activeMembers.filter(m => {
@@ -1076,7 +1294,9 @@
                 const headerBg = isWantTable ? 'bg-purple-100' : 'bg-pink-100';
                 const headerText = isWantTable ? 'text-purple-900' : 'text-pink-900';
 
-                const typeColWidth = activeTypes.length > 0 ? (82 / activeTypes.length).toFixed(2) : 10;
+                // メンバー名列の幅を広げて改行を防ぎ、各グッズ列の幅を自動計算
+                const nameColWidthPercent = 26;
+                const typeColWidth = activeTypes.length > 0 ? ((100 - nameColWidthPercent) / activeTypes.length).toFixed(2) : 10;
 
                 let html = `
                     <div class="bg-white rounded-xl border-2 ${borderClass} overflow-hidden shadow-sm w-full">
@@ -1084,7 +1304,7 @@
                         <table class="w-full text-xs border-collapse table-fixed">
                             <thead>
                                 <tr class="${headerBg} ${headerText} font-bold border-b-2 ${headerBorder}">
-                                    <th class="py-1 px-0.5 border-r-2 ${headerBorder} whitespace-nowrap text-center" style="width: 18%;"></th>
+                                    <th class="py-1 px-0.5 border-r-2 ${headerBorder} whitespace-nowrap text-center" style="width: ${nameColWidthPercent}%;"></th>
                                     ${activeTypes.map((t, i) => {
                                         const isLong = t.name.length >= 6;
                                         const fontSizeStyle = isLong ? 'font-size: 8px;' : 'font-size: 9px;';
@@ -1108,7 +1328,7 @@
 
                     html += `
                         <tr class="${rowBg} border-b border-slate-300">
-                            <td class="py-1 px-0.5 font-black text-slate-900 border-r-2 border-slate-300 ${nameCellBg} text-center align-middle break-words" style="font-size: 12.5px;">${displayName}</td>
+                            <td class="py-1 px-1 font-black text-slate-900 border-r-2 border-slate-300 ${nameCellBg} text-center align-middle whitespace-nowrap truncate" style="font-size: 11.5px;">${displayName}</td>
                     `;
 
                     activeTypes.forEach((t, i) => {
@@ -1179,9 +1399,157 @@
             }
         }
 
+        function renderTextImagePreview(titleVal, contactVal) {
+            const titleEl = document.getElementById('text-image-title-display');
+            const contactEl = document.getElementById('text-image-contact-display');
+            const dateEl = document.getElementById('text-image-date-display');
+            const haveContainerEl = document.getElementById('text-image-have-container');
+            const haveListEl = document.getElementById('text-image-have-list');
+            const wantContainerEl = document.getElementById('text-image-want-container');
+            const wantListEl = document.getElementById('text-image-want-list');
+
+            if (titleEl) titleEl.innerText = titleVal;
+            if (contactEl) contactEl.innerText = contactVal ? `連絡先: ${contactVal}` : '';
+            if (dateEl) dateEl.innerText = new Date().toLocaleDateString('ja-JP');
+
+            const { haveMap, wantMap } = buildTextTradeData(false);
+
+            let haveHtml = '';
+            Object.keys(haveMap).forEach(typeName => {
+                if (haveMap[typeName].length > 0) {
+                    const itemsHtml = haveMap[typeName].map(item => `<span class="inline-block">${item}</span>`).join(' ');
+                    haveHtml += `<div class="font-normal text-black">${typeName}:${itemsHtml}</div>`;
+                }
+            });
+            
+            if (haveHtml) {
+                if (haveListEl) haveListEl.innerHTML = haveHtml;
+                if (haveContainerEl) haveContainerEl.classList.remove('hidden');
+            } else {
+                if (haveContainerEl) haveContainerEl.classList.add('hidden');
+            }
+
+            let wantHtml = '';
+            Object.keys(wantMap).forEach(typeName => {
+                if (wantMap[typeName].length > 0) {
+                    const itemsHtml = wantMap[typeName].map(item => `<span class="inline-block">${item}</span>`).join(' ');
+                    wantHtml += `<div class="font-normal text-black">${typeName}:${itemsHtml}</div>`;
+                }
+            });
+            
+            if (wantHtml) {
+                if (wantListEl) wantListEl.innerHTML = wantHtml;
+                if (wantContainerEl) wantContainerEl.classList.remove('hidden');
+            } else {
+                if (wantContainerEl) wantContainerEl.classList.add('hidden');
+            }
+        }
+
+        function renderTextCopyPreview(titleVal, contactVal) {
+            const textArea = document.getElementById('copy-text-area');
+            if (!textArea) return;
+
+            const { haveMap, wantMap } = buildTextTradeData(true);
+
+            let lines = [];
+            lines.push(`${titleVal}`);
+            lines.push('');
+
+            let hasHave = false;
+            let haveLines = ['譲'];
+            Object.keys(haveMap).forEach(typeName => {
+                if (haveMap[typeName].length > 0) {
+                    haveLines.push(`${typeName}:${haveMap[typeName].join(' ')}`);
+                    hasHave = true;
+                }
+            });
+            if (hasHave) {
+                lines.push(...haveLines);
+                lines.push('');
+            }
+
+            let hasWant = false;
+            let wantLines = ['求'];
+            Object.keys(wantMap).forEach(typeName => {
+                if (wantMap[typeName].length > 0) {
+                    wantLines.push(`${typeName}:${wantMap[typeName].join(' ')}`);
+                    hasWant = true;
+                }
+            });
+            if (hasWant) {
+                lines.push(...wantLines);
+                lines.push('');
+            }
+
+            textArea.value = lines.join('\n').trim();
+            updateCharCount();
+        }
+
+        function updateCharCount() {
+            const textArea = document.getElementById('copy-text-area');
+            const counterEl = document.getElementById('char-count-display');
+            if (!textArea || !counterEl) return;
+
+            const length = textArea.value.length;
+            counterEl.innerText = `${length} / 140文字`;
+
+            if (length > 140) {
+                counterEl.className = "text-xs font-mono font-bold text-rose-600";
+            } else {
+                counterEl.className = "text-xs font-mono font-bold text-slate-400";
+            }
+        }
+
+        function insertQuickPhrase(phrase) {
+            const textArea = document.getElementById('copy-text-area');
+            if (!textArea) return;
+
+            const startPos = textArea.selectionStart;
+            const endPos = textArea.selectionEnd;
+            const text = textArea.value;
+
+            // カーソル前後の文字をチェックして、必要なら半角スペースを補填する
+            const charBefore = startPos > 0 ? text.charAt(startPos - 1) : '';
+            let insertText = phrase;
+            if (charBefore && charBefore !== ' ' && charBefore !== '\n') {
+                insertText = ' ' + phrase;
+            }
+
+            textArea.value = text.substring(0, startPos) + insertText + text.substring(endPos, text.length);
+            textArea.focus();
+            const newPos = startPos + insertText.length;
+            textArea.selectionStart = newPos;
+            textArea.selectionEnd = newPos;
+
+            updateCharCount();
+        }
+
+        function copyGeneratedText() {
+            const textArea = document.getElementById('copy-text-area');
+            if (!textArea || !textArea.value.trim()) {
+                showModal("⚠️ コピー失敗", "コピーするテキストがありません。");
+                return;
+            }
+
+            try {
+                textArea.select();
+                document.execCommand('copy');
+                showModal("📋 コピー成功", "テキストをクリップボードにコピーしました！SNS等にそのまま貼り付けできます。");
+            } catch (err) {
+                showModal("❌ エラー", "コピーに失敗しました。手動で範囲選択してコピーしてください。");
+            }
+        }
+
+        function getActiveCaptureElement() {
+            if (activePreviewMode === 'text-image') {
+                return document.getElementById('capture-area-text-image');
+            }
+            return document.getElementById('capture-area');
+        }
+
         // Image Download (Direct download button)
         function downloadImage() {
-            const captureArea = document.getElementById('capture-area');
+            const captureArea = getActiveCaptureElement();
             if (!captureArea) return;
             showModal("⌛ 画像を作成中", "高画質交換表画像を生成しています...");
 
@@ -1216,9 +1584,9 @@
             });
         }
 
-        // New Feature: Open Image in a separate window/tab for long-press saving (Safari fallback)
+        // Open Image in a separate window/tab for long-press saving
         function openImageViewer() {
-            const captureArea = document.getElementById('capture-area');
+            const captureArea = getActiveCaptureElement();
             if (!captureArea) return;
             showModal("⌛ 画像を作成中", "長押し保存用の画像を作成しています...");
 
@@ -1236,7 +1604,7 @@
                         <html>
                             <head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>交換表画像 - 長押し保存</title></head>
                             <body style="margin:0; background:#1e293b; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:100vh; padding:20px; box-sizing:border-box;">
-                                <p style="color:#f472b6; font-family:sans-serif; font-size:14px; font-weight:bold; margin:0 0 12px 0; text-align:center;">👇 下の画像を長押しして「“写真”に追加」または「画像を保存」してください</p>
+                                <p style="color:#f472b6; font-family:sans-serif; font-size:14px; font-weight:bold; margin:0 0 12px 0; text-align:center;">👇 下の画像を長押ししてクルクル保存してください</p>
                                 <img src="${image}" style="max-width:100%; height:auto; box-shadow:0 8px 24px rgba(0,0,0,0.5); border-radius:8px;">
                             </body>
                         </html>
@@ -1291,9 +1659,11 @@
             
             const exportTitle = document.getElementById('export-title');
             const exportContact = document.getElementById('export-contact');
+            const copyTextArea = document.getElementById('copy-text-area');
 
             if (exportTitle) exportTitle.addEventListener('input', renderPreview);
             if (exportContact) exportContact.addEventListener('input', renderPreview);
+            if (copyTextArea) copyTextArea.addEventListener('input', updateCharCount);
         });
     </script>
 </body>
